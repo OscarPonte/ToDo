@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Models
 {
-    public class User
+    public class ToDoUser
     {
         public int Id { get; set; }
         public string Name { get; set; }

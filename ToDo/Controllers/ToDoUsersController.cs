@@ -7,7 +7,7 @@ using ToDo.Models;
 
 namespace ToDo.Controllers
 {
-    public class UsersController : Controller
+    public class ToDoUsersController : Controller
     {
      
      public ViewResult Index()
@@ -27,12 +27,12 @@ namespace ToDo.Controllers
         return View(users);
     }
 
-    private IEnumerable<User> GetUsers()
+    private IEnumerable<ToDoUser> GetUsers()
     {
-            return new List<User>
+            return new List<ToDoUser>
                 {
-                    new User { Id = 1, Name = "Oscar" },
-                    new User { Id = 2, Name = "Rossy" }
+                    new ToDoUser { Id = 1, Name = "Oscar" },
+                    new ToDoUser { Id = 2, Name = "Rossy" }
                 };
         }
     }
