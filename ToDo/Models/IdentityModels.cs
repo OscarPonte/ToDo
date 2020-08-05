@@ -22,15 +22,19 @@ namespace ToDo.Models
     {
         public DbSet<ToDoUser> ToDoUsers { get; set; }
         public DbSet<ToDoTask> ToDoTasks { get; set; }
+        public DbSet<ToDoStep> ToDoSteps { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+                
     }
 }

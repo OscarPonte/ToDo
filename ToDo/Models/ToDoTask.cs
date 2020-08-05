@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDo.Models
 {
@@ -8,8 +9,7 @@ namespace ToDo.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
-        public ToDoStep ToDoStep { get; set; }
-        public int ToDoStepId { get; set; }
+        public IEnumerable<ToDoStep> ToDoSteps { get; set; }
 
     }
 }

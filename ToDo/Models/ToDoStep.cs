@@ -8,6 +8,9 @@ namespace ToDo.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
+        public ToDoTask ToDoTask { get; set; }
+        public int ToDoTaskId { get; set; }
+
 
     }
 }

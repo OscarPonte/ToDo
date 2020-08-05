@@ -204,6 +204,14 @@
     <Compile Include="Migrations\202008051357596_AddDataAnnotationsToTheModels.Designer.cs">
       <DependentUpon>202008051357596_AddDataAnnotationsToTheModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008051536317_Test.cs" />
+    <Compile Include="Migrations\202008051536317_Test.Designer.cs">
+      <DependentUpon>202008051536317_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008051548449_ReversedTest.cs" />
+    <Compile Include="Migrations\202008051548449_ReversedTest.Designer.cs">
+      <DependentUpon>202008051548449_ReversedTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -280,6 +288,9 @@
     <Content Include="Views\ToDoUsers\Create.cshtml" />
     <Content Include="Views\ToDoUsers\Delete.cshtml" />
     <Content Include="Views\ToDoUsers\Edit.cshtml" />
+    <Content Include="Views\ToDoTasks\Create.cshtml" />
+    <Content Include="Views\ToDoTasks\Delete.cshtml" />
+    <Content Include="Views\ToDoTasks\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008051357596_AddDataAnnotationsToTheModels.resx">
       <DependentUpon>202008051357596_AddDataAnnotationsToTheModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051536317_Test.resx">
+      <DependentUpon>202008051536317_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051548449_ReversedTest.resx">
+      <DependentUpon>202008051548449_ReversedTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
