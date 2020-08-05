@@ -277,6 +277,9 @@
     <Content Include="Views\ToDoUsers\Index.cshtml" />
     <Content Include="Views\ToDoUsers\Details.cshtml" />
     <Content Include="Views\ToDoTasks\Details.cshtml" />
+    <Content Include="Views\ToDoUsers\Create.cshtml" />
+    <Content Include="Views\ToDoUsers\Delete.cshtml" />
+    <Content Include="Views\ToDoUsers\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

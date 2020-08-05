@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using ToDo.Models;
 
@@ -7,32 +8,115 @@ namespace ToDo.Controllers
 {
     public class ToDoTasksController : Controller
     {
-        // GET: Tasks
-        public ViewResult Index()
-        {
-            var tasks = GetTasks();
+        private ApplicationDbContext _context = new ApplicationDbContext();
 
-            return View(tasks);
+
+        // GET: ToDoTasks
+        public ActionResult Index()
+        {
+            return View(_context.ToDoTasks.ToList());
         }
-        public ActionResult Details(int id)
-        {
-            var tasks = GetTasks().SingleOrDefault(t => t.Id == id);
 
-            if (tasks == null)
-                return HttpNotFound();
-
-            return View(tasks);
-        }
-        private IEnumerable<ToDoTask> GetTasks()
+        // GET: ToDoTasks/Details/5
+        public ActionResult Details(int? id)
         {
-            return new List<ToDoTask>
+            if (id == null)
             {
-                new ToDoTask {Id = 1, Name = "Clean The Bathroom"},
-                new ToDoTask {Id = 2, Name = "Clean The Kitchen"},
-                new ToDoTask {Id = 3, Name = "Clean The Bedroom"}
-            };
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            var toDoTask = _context.ToDoTasks.Find(id);
+
+            if (toDoTask == null)
+            {
+                return HttpNotFound();
+            }
+            return View(toDoTask);
         }
 
+        // GET: ToDoTasks/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: ToDoTasks/Create       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name")] ToDoTask toDoTask)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.ToDoTasks.Add(toDoTask);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(toDoTask);
+        }
+
+        // GET: ToDoTasks/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
+            if (toDoTask == null)
+            {
+                return HttpNotFound();
+            }
+            return View(toDoTask);
+        }
+
+        // POST: ToDoTasks/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name")] ToDoTask toDoTask)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Entry(toDoTask).State = EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(toDoTask);
+        }
+
+        // GET: ToDoTasks/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
+            if (toDoTask == null)
+            {
+                return HttpNotFound();
+            }
+            return View(toDoTask);
+        }
+
+        // POST: ToDoTasks/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
+            _context.ToDoTasks.Remove(toDoTask);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
