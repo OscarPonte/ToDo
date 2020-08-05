@@ -196,10 +196,19 @@
     <Compile Include="Migrations\202008051130313_InitialMigration.Designer.cs">
       <DependentUpon>202008051130313_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008051346522_AddToDoStepModel.cs" />
+    <Compile Include="Migrations\202008051346522_AddToDoStepModel.Designer.cs">
+      <DependentUpon>202008051346522_AddToDoStepModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008051357596_AddDataAnnotationsToTheModels.cs" />
+    <Compile Include="Migrations\202008051357596_AddDataAnnotationsToTheModels.Designer.cs">
+      <DependentUpon>202008051357596_AddDataAnnotationsToTheModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ToDoStep.cs" />
     <Compile Include="Models\ToDoTask.cs" />
     <Compile Include="Models\ToDoUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ToDoUsers1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -291,6 +301,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008051130313_InitialMigration.resx">
       <DependentUpon>202008051130313_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051346522_AddToDoStepModel.resx">
+      <DependentUpon>202008051346522_AddToDoStepModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008051357596_AddDataAnnotationsToTheModels.resx">
+      <DependentUpon>202008051357596_AddDataAnnotationsToTheModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
