@@ -6,18 +6,18 @@ using ToDo.Models;
 
 namespace ToDo.Controllers
 {
-    public class ToDoTasksController : Controller
+    public class ToDoUsersController : Controller
     {
         private ApplicationDbContext _context = new ApplicationDbContext();
 
 
-        // GET: ToDoTasks
+        // GET: ToDoUsers
         public ActionResult Index()
         {
-            return View(_context.ToDoTasks.ToList());
+            return View(_context.ToDoUsers.ToList());
         }
 
-        // GET: ToDoTasks/Details/5
+        // GET: ToDoUsers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -25,87 +25,87 @@ namespace ToDo.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var toDoTask = _context.ToDoTasks.Find(id);
+            var toDoUser = _context.ToDoUsers.Find(id);
 
-            if (toDoTask == null)
+            if (toDoUser == null)
             {
                 return HttpNotFound();
             }
-            return View(toDoTask);
+            return View(toDoUser);
         }
 
-        // GET: ToDoTasks/Create
+        // GET: ToDoUsers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ToDoTasks/Create       
+        // POST: ToDoUsers1/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] ToDoTask toDoTask)
+        public ActionResult Create([Bind(Include = "Id,Name")] ToDoUser toDoUser)
         {
             if (ModelState.IsValid)
             {
-                _context.ToDoTasks.Add(toDoTask);
+                _context.ToDoUsers.Add(toDoUser);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(toDoTask);
+            return View(toDoUser);
         }
 
-        // GET: ToDoTasks/Edit/5
+        // GET: ToDoUsers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
-            if (toDoTask == null)
+            ToDoUser toDoUser = _context.ToDoUsers.Find(id);
+            if (toDoUser == null)
             {
                 return HttpNotFound();
             }
-            return View(toDoTask);
+            return View(toDoUser);
         }
 
-        // POST: ToDoTasks/Edit/5
+        // POST: ToDoUsers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] ToDoTask toDoTask)
+        public ActionResult Edit([Bind(Include = "Id,Name")] ToDoUser toDoUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Entry(toDoTask).State = EntityState.Modified;
+                _context.Entry(toDoUser).State = EntityState.Modified;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(toDoTask);
+            return View(toDoUser);
         }
 
-        // GET: ToDoTasks/Delete/5
+        // GET: ToDoUsers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
-            if (toDoTask == null)
+            ToDoUser toDoUser = _context.ToDoUsers.Find(id);
+            if (toDoUser == null)
             {
                 return HttpNotFound();
             }
-            return View(toDoTask);
+            return View(toDoUser);
         }
 
-        // POST: ToDoTasks/Delete/5
+        // POST: ToDoUsers1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
-            _context.ToDoTasks.Remove(toDoTask);
+            ToDoUser toDoUser = _context.ToDoUsers.Find(id);
+            _context.ToDoUsers.Remove(toDoUser);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

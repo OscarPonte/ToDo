@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ToDo.Models
 {
@@ -20,14 +20,21 @@ namespace ToDo.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ToDoUser> ToDoUsers { get; set; }
+        public DbSet<ToDoTask> ToDoTasks { get; set; }
+        public DbSet<ToDoStep> ToDoSteps { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+                
     }
 }
