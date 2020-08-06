@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace ToDo.Controllers
         // GET: ToDoUsers
         public ActionResult Index()
         {
-            return View(_context.ToDoUsers.Include(x => x.ToDoTasks).ToList());
+            return View(_context.ToDoUsers.Include(t => t.ToDoTasks).ToList());
         }
 
         // GET: ToDoUsers/Details/5
@@ -25,7 +26,10 @@ namespace ToDo.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var toDoUser = _context.ToDoUsers.Find(id);
+            var toDoUser = _context.ToDoUsers
+                .Include(t => t.ToDoTasks)
+                .SingleOrDefault(u => u.Id == id);
+
 
             if (toDoUser == null)
             {

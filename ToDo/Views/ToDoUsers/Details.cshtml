@@ -5,22 +5,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<table class="table">
+    <tr>
+        <th>
+            <p>Current Tasks</p>
+        </th>
+    </tr>
+    @foreach (var task in Model.ToDoTasks)
+    {
+        <tr>
+            <td>
+                <ul>
+                    <li>
+                        @Html.DisplayFor(modelItem => task.Name)
+                    </li>
+                </ul>               
+            </td>
+        </tr>
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+</table>
 
-    </dl>
-</div>
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
