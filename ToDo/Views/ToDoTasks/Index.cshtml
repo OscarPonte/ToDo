@@ -8,53 +8,47 @@
 <h2>Tasks</h2>
 
 <table class="table">
-    
 
-@foreach (var item in Model) {
-<tr>    
-    <td>
-        @Html.ActionLink(item.Name, "Details", new { id = item.Id })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new { id = item.Id })
 
-      
-       
-
-
-
-    </td>
-    <td>
-        <div class="btn-toolbar">    
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href= '@Url.Action("Edit", new { id = item.Id})'">
+                    <span class="glyphicon glyphicon-pencil" style="color:black" aria-hidden="true"> </span>
+                </button>
+                |
+                <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href= '@Url.Action("Delete", new { id = item.Id})'">
+                    <span class="glyphicon glyphicon-trash" style="color:black" aria-hidden="true"> </span>
+                </button>
+            </td>
+            <td>
                 <div class="btn-group">
-                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        Steps
-                        <span class="caret"></span>
-                    </a>
+                    <a href="#" class="btn btn-primary">Steps</a>
+                    <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"></a></li>
-                        <li><a href="#">Dropdown link</a></li>
-                        <li><a href="#">Dropdown link</a></li>
+                        @foreach (var step in item.ToDoSteps)
+                        {
+                            if (step.TheStepItsDone == true)
+                            {
+                                <li><a href="#"><strike>@step.Name</strike></a></li>
+                            }
+                            else
+                            {
+                                <li><a href="#">@step.Name</a></li>
+                            }
+                        }
+
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-plus" style="color:blue" aria-hidden="true"></span>
+                            </a>
+                        </li>
                     </ul>
-                </div>          
-        </div>
-
-
-
-
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-    </td>
-    </tr>
-    }
-    <tr>
-        <td align="right">
-            <button type="button" class="btn btn-primary" onclick="window.location.href='/ToDoTasks/Create'">
-                <span class="glyphicon glyphicon-plus" style="color:black" aria-hidden="true"> </span>
-            </button>
-            
-            
-        </td>
-        <td>
-    <span class="help-block">Add a Task</span>
-        </td>
-</tr>
-
+                </div>
+            </td>
+        </tr>
+    }  
 </table>
+ @Html.ActionLink("New Task", "Create")
