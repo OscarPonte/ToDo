@@ -14,7 +14,7 @@ namespace ToDo.Controllers
         // GET: ToDoTasks
         public ActionResult Index()
         {
-            return View(_context.ToDoTasks.ToList());            
+            return View(_context.ToDoTasks.Include(s => s.ToDoSteps).ToList());
         }
 
         // GET: ToDoTasks/Details/5
@@ -25,10 +25,11 @@ namespace ToDo.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var toDoTask = _context.ToDoTasks.Find(id);         
+            var toDoTask = _context.ToDoTasks
+                .Include(u => u.ToDoUsers)
+                .Include(s => s.ToDoSteps)
+                .SingleOrDefault(t => t.Id == id);
 
-
-            _context.ToDoSteps.Where(t => t.ToDoTaskId == id).ToList();
 
             if (toDoTask == null)
             {
@@ -46,7 +47,7 @@ namespace ToDo.Controllers
         // POST: ToDoTasks/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] ToDoTask toDoTask)
+        public ActionResult Create([Bind(Include = "Id,Name,DateAdded")] ToDoTask toDoTask)
         {
             if (ModelState.IsValid)
             {
