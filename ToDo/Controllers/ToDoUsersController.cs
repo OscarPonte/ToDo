@@ -14,7 +14,7 @@ namespace ToDo.Controllers
         // GET: ToDoUsers
         public ActionResult Index()
         {
-            return View(_context.ToDoUsers.ToList());
+            return View(_context.ToDoUsers.Include(x => x.ToDoTasks).ToList());
         }
 
         // GET: ToDoUsers/Details/5

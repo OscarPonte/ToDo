@@ -9,7 +9,9 @@ namespace ToDo.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
-        public IEnumerable<ToDoStep> ToDoSteps { get; set; }
+        public ICollection<ToDoStep> ToDoSteps { get; set; }
+        public ICollection<ToDoUser> ToDoUsers { get; set; }
+
 
     }
 }
