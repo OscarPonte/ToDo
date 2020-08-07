@@ -1,8 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ToDo.Models;
+using ToDo.ViewModels;
 
 namespace ToDo.Controllers
 {
@@ -29,33 +31,41 @@ namespace ToDo.Controllers
                 .Include(u => u.ToDoUsers)
                 .Include(s => s.ToDoSteps)
                 .SingleOrDefault(t => t.Id == id);
-
+            var toDoUsers = _context.ToDoUsers.ToList();
+            var toDoSteps = _context.ToDoSteps.ToList();
+            var viewModel = new TasksFormViewModel
+            {
+                ToDoUsers = toDoUsers,
+                ToDoSteps = toDoSteps,
+                ToDoTask = toDoTask
+            };
 
             if (toDoTask == null)
             {
                 return HttpNotFound();
             }
-            return View(toDoTask);
+
+            return View(viewModel);            
         }
 
         // GET: ToDoTasks/Create
         public ActionResult Create()
-        {
+        {           
             return View();
         }
 
         // POST: ToDoTasks/Create       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,DateAdded")] ToDoTask toDoTask)
+        public ActionResult Create([Bind(Include = "Id,Name")] ToDoTask toDoTask)
         {
             if (ModelState.IsValid)
             {
+                toDoTask.DateAdded = DateTime.Now;
                 _context.ToDoTasks.Add(toDoTask);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(toDoTask);
         }
 
@@ -66,12 +76,25 @@ namespace ToDo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ToDoTask toDoTask = _context.ToDoTasks.Find(id);
+
+            var toDoTask = _context.ToDoTasks
+                .Include(u => u.ToDoUsers)
+                .Include(s => s.ToDoSteps)
+                .SingleOrDefault(t => t.Id == id);
+
             if (toDoTask == null)
             {
                 return HttpNotFound();
             }
-            return View(toDoTask);
+
+            var viewModel = new TasksFormViewModel
+            {
+                ToDoTask = toDoTask,
+                ToDoUsers = toDoTask.ToDoUsers,
+                ToDoSteps = toDoTask.ToDoSteps
+            };
+
+            return View("Create", viewModel);
         }
 
         // POST: ToDoTasks/Edit/5

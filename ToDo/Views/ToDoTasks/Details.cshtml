@@ -1,4 +1,4 @@
-﻿@model ToDo.Models.ToDoTask
+﻿@model ToDo.ViewModels.TasksFormViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,13 +7,18 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>
-        @Html.DisplayFor(model => model.Name)
-        <button type="button" class="btn btn-primary" onclick="window.location.href= '@Url.Action("Edit", new { id = Model.Id})'">
-            <span class="glyphicon glyphicon-pencil" style="color:black" aria-hidden="true"> </span>
-        </button>
-    </h4>
+
+@using (Html.BeginForm("Create", "ToDoTasks"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ToDoTask.Id)
+
+    <div class="form-group">
+        @Html.EditorFor(model => model.ToDoTask.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ToDoTask.Name, "", new { @class = "text-danger" })
+    </div>
 
     <table class="table table-striped">
         <thead>
@@ -29,19 +34,14 @@
         <tbody>
             <tr>
                 <td>
-                    @Model.DateAdded.ToString("dd/mm/yyyy hh:mm")
+                    @Html.DisplayTextFor(m => m.ToDoTask.DateAdded)
                 </td>
                 <td>
-                    @if (@Model.DateEnded.HasValue)
-                    {
-                        @Model.DateEnded.GetValueOrDefault()
-                    }
+                    @Html.DisplayTextFor(m => m.ToDoTask.DateEnded)
                 </td>
             </tr>
         </tbody>
     </table>
-
-    
     <hr />
 
     <table class="table table-striped table-hover ">
@@ -54,14 +54,17 @@
         <tbody>
             <tr class="info">
                 <td>
-                    @foreach (var user in Model.ToDoUsers)
-                    {
+                    <div class="form-group">
 
-                        <p class="lead">
-                            @Html.ActionLink(user.Name, "Details", "ToDoUsers", new { id = user.Id }, null)
-                        </p>
+                        @foreach (var user in Model.ToDoTask.ToDoUsers)
+                        {
 
-                    }
+                            <p class="lead">
+                                @Html.ActionLink(user.Name, "Details", "ToDoUsers", new { id = user.Id }, null)
+                            </p>
+
+                        }
+                    </div>
                 </td>
                 <td>
                     @foreach (var step in Model.ToDoSteps)
@@ -81,8 +84,26 @@
 
     <dl class="dl-horizontal">
     </dl>
-</div>
+
+    <ul class="pager">
+        <li>@Html.ActionLink("Previous", "Details", new { id = Model.ToDoTask.Id - 1 })</li>
+        <li>@Html.ActionLink("Next", "Details", new { id = Model.ToDoTask.Id + 1 })</li>
+    </ul>
+
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+
+}
+
+
+
+
+
+
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit"@*, new { id = Model.Id }*@) |
     @Html.ActionLink("Back to List", "Index")
 </p>
